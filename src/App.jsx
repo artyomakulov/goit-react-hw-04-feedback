@@ -1,38 +1,32 @@
-import React from 'react';
+import {useState} from 'react';
 import FeedbackOptions from './components/FeedbackOptions';
 import Statistics from './components/Statistics';
 import SectionTitle from './components/SectionTitle';
 import Notification from './components/Notification';
 import css from './components/App.module.css'
 
-class App extends React.Component {
-    state = {
-        good: 0, 
-        neutral: 0,
-        bad: 0,
-      };
+function App() {
 
-      handelIncrement = (event) => {
+    const [good, setGood] = useState(0);
+    const [neutral, setNeutral] = useState(0);
+    const [bad, setBad] = useState(0);
+
+      
+     const handelIncrement = (event) => {
         if (event.target.textContent === 'good') {
-            this.setState(prevState => ({
-        good: prevState.good + 1,
-    }))
+          setGood(prevState => prevState + 1)
         } else if (event.target.textContent === 'neutral') {
-            this.setState(prevState => ({
-            neutral: prevState.neutral + 1,
-        })) 
+          setNeutral(prevState => prevState + 1) 
         } else {
-            this.setState(prevState => ({
-            bad: prevState.bad + 1,
-        })) 
+          setBad(prevState => prevState + 1) 
         }
     }
 
-    countTotalFeedback = ({ good, neutral, bad }) => {
+    const countTotalFeedback = ( good, neutral, bad ) => {
         return good + neutral + bad;
       };
 
-    countPositiveFeedbackPercentage = ({ good, neutral, bad }) => {
+    const countPositiveFeedbackPercentage = ( good, neutral, bad ) => {
         const totalFeedback = good + neutral + bad;
     
         let positivePerctenger = (good / totalFeedback) * 100;
@@ -42,28 +36,26 @@ class App extends React.Component {
           : 0);
       };
 
-    render () {
-        const {good, neutral, bad} = this.state
-        return (  
-            <div className={css.Counter}>
-            <SectionTitle title={"Please leave feedback"}> 
-            <FeedbackOptions increment={this.handelIncrement}/>
-            {good || neutral || bad ? (
-            <div>
-              <Statistics
-                good={good}
-                neutral={neutral}
-                bad={bad}
-                total={this.countTotalFeedback(this.state)}
-                positiveFeedBack={this.countPositiveFeedbackPercentage(this.state)}/>
-            </div>
-          ) : (
-            <Notification message={"There is no feedback"} />
-          )}
-            </SectionTitle>
-            </div>
-        )
-    }
+
+    return (  
+        <div className={css.Counter}>
+        <SectionTitle title={"Please leave feedback"}> 
+        <FeedbackOptions increment={handelIncrement}/>
+        {good || neutral || bad ? (
+        <div>
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={countTotalFeedback(good, neutral, bad)}
+            positiveFeedBack={countPositiveFeedbackPercentage(good, neutral, bad)}/>
+        </div>
+      ) : (
+        <Notification message={"There is no feedback"} />
+      )}
+        </SectionTitle>
+        </div>
+    )
 }
 
 export default App;
