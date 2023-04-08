@@ -46,12 +46,8 @@ function App() {
               good={good}
               neutral={neutral}
               bad={bad}
-              total={countTotalFeedback(good, neutral, bad)}
-              positiveFeedBack={countPositiveFeedbackPercentage(
-                good,
-                neutral,
-                bad
-              )}
+              total={countTotalFeedback()}
+              positiveFeedBack={countPositiveFeedbackPercentage()}
             />
           </div>
         ) : (
