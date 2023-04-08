@@ -38,7 +38,7 @@ function App() {
       <SectionTitle title={'Please leave feedback'}>
         <FeedbackOptions
           increment={handelIncrement}
-          options={['good', 'neutral', 'bad']}
+          options={Object.keys({ good, neutral, bad })}
         />
         {good || neutral || bad ? (
           <div>
@@ -46,12 +46,8 @@ function App() {
               good={good}
               neutral={neutral}
               bad={bad}
-              total={countTotalFeedback(good, neutral, bad)}
-              positiveFeedBack={countPositiveFeedbackPercentage(
-                good,
-                neutral,
-                bad
-              )}
+              total={countTotalFeedback()}
+              positiveFeedBack={countPositiveFeedbackPercentage()}
             />
           </div>
         ) : (
