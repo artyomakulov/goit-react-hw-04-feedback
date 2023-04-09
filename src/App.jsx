@@ -21,11 +21,11 @@ function App() {
     }
   };
 
-  const countTotalFeedback = (good, neutral, bad) => {
+  const countTotalFeedback = () => {
     return good + neutral + bad;
   };
 
-  const countPositiveFeedbackPercentage = (good, neutral, bad) => {
+  const countPositiveFeedbackPercentage = () => {
     const totalFeedback = good + neutral + bad;
 
     let positivePerctenger = (good / totalFeedback) * 100;
